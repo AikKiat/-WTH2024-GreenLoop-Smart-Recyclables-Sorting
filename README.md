@@ -25,4 +25,7 @@
 *Of course, both Baud Rate and COM Port can be changed according to the hardware configurations and connections of the UNO Board*
 
 ## Example:
-![GREENLoop](https://github.com/user-attachments/assets/5e611638-bdb4-4308-9ff3-5be059a2abb5)
+<img src="https://github.com/user-attachments/assets/5e611638-bdb4-4308-9ff3-5be059a2abb5" style ="width:20rem; heigh:20rem">
+
+<img src="https://github.com/user-attachments/assets/f4e51a50-44a7-4c96-96ce-54442058e52a" style="width:4rem; height:4rem"> <img src="https://github.com/user-attachments/assets/7736b752-328a-46ea-adc2-ef767ca72b4f" style="width:4rem; height:4rem"> <img src="https://github.com/user-attachments/assets/e42711f9-b466-4351-9b09-1f4f82f56f31" style="width:4rem; height:4rem"> 
+

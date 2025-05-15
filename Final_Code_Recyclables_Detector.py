@@ -12,8 +12,8 @@ def folder_is_empty(folder_path):
     return len(os.listdir(folder_path)) == 0 
  
  
-def predict_image(image, ser): 
-    model = tf.keras.models.load_model("model_saved.h5") 
+def predict_image(image):  #use (image, ser) for INTEGRATION WITH ARUINO / ESP 32
+    model = tf.keras.models.load_model("Trained Models/model_saved.h5") 
     labels = {0: 'cardboard', 1: 'glass', 2: 'metal', 3: 'paper', 4: 'plastic', 5: 'trash'} 
  
     img = ku.load_img(image, target_size=(300, 300)) 
@@ -44,8 +44,11 @@ def display(video_capture):
  
  
 def capture_images(video_capture, output_folder, interval_seconds, max_images, port, baud_rate): 
-    ser = serial.Serial(port=port, baudrate=baud_rate,timeout=1) 
-    print(f"Connected to {PORT} at {BAUD_RATE} baud.")
+    ###
+    #UNCOMMENT FOR INTEGRATION WITH ARDUINO /ESP 32
+    # ser = serial.Serial(port=port, baudrate=baud_rate,timeout=1) 
+    # print(f"Connected to {PORT} at {BAUD_RATE} baud.")
+    ###
 
     time.sleep(2)
 
@@ -60,7 +63,7 @@ def capture_images(video_capture, output_folder, interval_seconds, max_images, p
     start_time = time.time()
  
     while image_count < max_images: 
-        response = ser.readline().decode().strip()  # Read response from ESP32
+      #  response = ser.readline().decode().strip()  # Read response from ESP32 Uncomment for integration with Arduino / ESP 32
         if response:
             print(f"ESP32 says: {response}")
 
@@ -81,21 +84,24 @@ def capture_images(video_capture, output_folder, interval_seconds, max_images, p
             break 
         time.sleep(0.01)  # Small sleep to prevent excessive CPU usage 
 
+###
+#UNCOMMENT FOR INTEGRATION WITH ARDUINO / ESP32
 # Update these variables based on your setup
-PORT = "COM5"  # Replace with the port your ESP32 is connected to (e.g., "COM3" on Windows, "/dev/ttyUSB0" on Linux)
-BAUD_RATE = 115200  # Match the baud rate set in your ESP32 code
+# PORT = "COM5"  # Replace with the port your ESP32 is connected to (e.g., "COM3" on Windows, "/dev/ttyUSB0" on Linux)
+# BAUD_RATE = 115200  # Match the baud rate set in your ESP32 code
+###
 
 # Main script 
 if __name__ == "__main__": 
 
     # Parameters 
-    output_folder = "C:\\Users\\thnga\\Desktop\\Smart-Garbage-Segregation-main\\Smart-Garbage-Segregation-main\\Collection" 
+    output_folder = "Collection" 
     interval_seconds = 5 
     max_images = 30
  
     # Initialize VideoCapture objects 
-    video_capture1 = cv2.VideoCapture(1) 
-    video_capture2 = cv2.VideoCapture(1) 
+    video_capture1 = cv2.VideoCapture(0)  #Set to 1, 2 or 3 for external cameras. Uses default integrated camera
+    video_capture2 = cv2.VideoCapture(0) 
  
     # Create threads 
     display_thread = threading.Thread(target=display, args=(video_capture1,)) 
